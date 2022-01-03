@@ -17,13 +17,13 @@ public class BankController {
     }
 
     @GetMapping
-    public List<BankDAO> getBanks() {
+    public List<Bank> getBanks() {
         return bankService.getAll();
     }
 
     @PostMapping
-    public void addBank(@RequestBody BankDAO bankDAO) {
-        bankService.addBank(bankDAO);
+    public void addBank(@RequestBody Bank bank) {
+        bankService.addBank(bank);
     }
 
     @DeleteMapping(path = "{bankId}")
@@ -32,8 +32,8 @@ public class BankController {
     }
 
     @PutMapping
-    public void updateBank(@RequestBody BankDAO bankDAO) {
-        bankService.updateBank(bankDAO);
+    public void updateBank(@RequestBody Bank bank) {
+        bankService.updateBank(bank);
     }
 
 }

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface BankRepository extends JpaRepository<BankDAO, Long> {
+public interface BankRepository extends JpaRepository<Bank, Long> {
 
-    Optional<BankDAO> findBankDAOByName(String name);
+    Optional<Bank> findBankByName(String name);
 }

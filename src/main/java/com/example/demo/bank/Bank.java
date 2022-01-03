@@ -4,17 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class BankDAO {
+public class Bank {
     @Id
-    @SequenceGenerator(
-            name = "bank_sequence",
-            sequenceName = "bank_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            generator = "bank_sequence",
-            strategy = GenerationType.SEQUENCE
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     private String name;
@@ -25,17 +18,10 @@ public class BankDAO {
 
     private Long rank;
 
-    public BankDAO() {}
-
-    public BankDAO(String name, String country, String phone, Long rank) {
-        this.name = name;
-        this.country = country;
-        this.phone = phone;
-        this.rank = rank;
+    public Bank() {
     }
 
-    public BankDAO(Long id, String name, String country, String phone, Long rank) {
-        this.id = id;
+    public Bank(String name, String country, String phone, Long rank) {
         this.name = name;
         this.country = country;
         this.phone = phone;
@@ -80,5 +66,16 @@ public class BankDAO {
 
     public void setRank(Long rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", rank=" + rank +
+                '}';
     }
 }

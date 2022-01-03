@@ -17,36 +17,33 @@ public class BankService {
     }
 
 
-    public List<BankDAO> getAll() {
+    public List<Bank> getAll() {
         return bankRepository.findAll();
     }
 
-    public void addBank(BankDAO bankDAO) {
-        Optional<BankDAO> bankDAOByName = bankRepository.findBankDAOByName(bankDAO.getName());
-        if (bankDAOByName.isPresent()) {
+    public void addBank(Bank bank) {
+        Optional<Bank> bankByName = bankRepository.findBankByName(bank.getName());
+        if (bankByName.isPresent()) {
             throw new BankAlreadyExistsException();
         }
-        bankRepository.save(bankDAO);
+        bankRepository.save(bank);
     }
 
     public void deleteBank(Long id) {
-        Optional<BankDAO> bankDAOById = bankRepository.findById(id);
-        if (!bankDAOById.isPresent()) {
-            throw new BankDoesNotExistException();
-        }
-        bankRepository.delete(bankDAOById.get());
+        Bank bankById = findById(id);
+        bankRepository.delete(bankById);
     }
 
-    public void updateBank(BankDAO bankDAO) {
-        Optional<BankDAO> bankDAOById = bankRepository.findById(bankDAO.getId());
-        if (!bankDAOById.isPresent()) {
-            throw new BankDoesNotExistException();
-        }
-        BankDAO bankFromDb = bankDAOById.get();
-        bankFromDb.setCountry(bankDAO.getCountry());
-        bankFromDb.setName(bankDAO.getName());
-        bankFromDb.setPhone(bankDAO.getPhone());
-        bankFromDb.setRank(bankDAO.getRank());
+    public void updateBank(Bank bank) {
+        Bank bankFromDb = findById(bank.getId());
+        bankFromDb.setCountry(bank.getCountry());
+        bankFromDb.setName(bank.getName());
+        bankFromDb.setPhone(bank.getPhone());
+        bankFromDb.setRank(bank.getRank());
         bankRepository.save(bankFromDb);
+    }
+
+    private Bank findById(Long id) {
+        return bankRepository.findById(id).orElseThrow(BankDoesNotExistException::new);
     }
 }

@@ -21,9 +21,9 @@ public class BankConfig {
     @Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
-            BankDAO bank1 = new BankDAO("bank1", "Italy", "+42 (233) 98333", 3L);
-            BankDAO bank2 = new BankDAO("bank2", "France", "+32 (233) 25233", 5L);
-            List<BankDAO> banks = new ArrayList<>();
+            Bank bank1 = new Bank("bank1", "Italy", "+42 (233) 98333", 3L);
+            Bank bank2 = new Bank("bank2", "France", "+32 (233) 25233", 5L);
+            List<Bank> banks = new ArrayList<>();
             banks.add(bank1);
             banks.add(bank2);
             bankRepository.saveAll(banks);
